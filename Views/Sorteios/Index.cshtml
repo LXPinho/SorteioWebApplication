@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<SorteioWebApplication.Models.Sorteios>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Sorteios";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -19,13 +19,12 @@
                 @Html.DisplayNameFor(model => model.VibesAculumadas)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Texto)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.ListaSorteios)
             </th>
-            <th></th>
-        </tr>
+@*             <th>
+                @Html.DisplayNameFor(model => model.Texto)
+            </th>
+ *@        </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
@@ -39,16 +38,21 @@
             <td>
                 @Html.DisplayFor(modelItem => item.VibesAculumadas)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Texto)
-            </td>
              <td>
-                @Html.DisplayFor(modelItem => item.ListaSorteios)
+                 @foreach(var i in item.ListaSorteios)
+                 {
+                     @foreach(var i2 in i.listaNumerosSorteados)
+                     {
+                         <td>
+                            @Html.DisplayFor(modelItem => i2.Numero ); 
+                        </td>
+                    }
+                 }
              </td>
-              <td>
-                @Html.ActionLink("Detalhes", "Details", new { id = item.NumeroDoSorteio }) |
-            </td> 
-        </tr>
+@*             <td>
+                @Html.DisplayFor(modelItem => item.Texto)
+            </td> *@
+         </tr>
 }
     </tbody>
 </table>
