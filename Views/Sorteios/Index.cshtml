@@ -5,7 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+
+<h1>Sorteios</h1>
 <table class="table">
     <thead>
         <tr>
@@ -19,7 +20,7 @@
                 @Html.DisplayNameFor(model => model.VibesAculumadas)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ListaSorteios)
+                @Html.DisplayNameFor(model => model.NumerosSorteados)
             </th>
 @*             <th>
                 @Html.DisplayNameFor(model => model.Texto)
@@ -39,15 +40,7 @@
                 @Html.DisplayFor(modelItem => item.VibesAculumadas)
             </td>
              <td>
-                 @foreach(var i in item.ListaSorteios)
-                 {
-                     @foreach(var i2 in i.listaNumerosSorteados)
-                     {
-                         <td>
-                            @Html.DisplayFor(modelItem => i2.Numero ); 
-                        </td>
-                    }
-                 }
+                 @Html.DisplayFor(modelItem => item.NumerosSorteados)
              </td>
 @*             <td>
                 @Html.DisplayFor(modelItem => item.Texto)

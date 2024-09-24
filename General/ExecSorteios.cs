@@ -53,17 +53,20 @@ namespace SorteioWebApplication.Tools
         }
         static async Task<Uri> CreateSorteiosAsync(Sorteios sorteios)
         {
+            string requestUrl = Tools.GetRequestUrl();
             HttpResponseMessage response = await Tools.getInstanceHttpClient().PostAsJsonAsync(
-                $"api/Sorteio/Post{sorteios}", sorteios);
+                requestUrl + $"{sorteios}", sorteios);
             response.EnsureSuccessStatusCode();
 
             // return URI of the created resource.
             return response.Headers.Location;
         }
-        static async Task<List<Sorteios>> GetClienteAsync(string path)
+        static async Task<List<Sorteios>> GetSorteiosAsync(string path)
         {
             List<Sorteios> sorteios;
-            using (HttpResponseMessage response = await Tools.getInstanceHttpClient().GetAsync(path + $"api/Sorteio/"))
+            string requestUrl = Tools.GetRequestUrl();
+            int vibesAcumulados = Tools.GetVibesAcumulados();
+            using (HttpResponseMessage response = await Tools.getInstanceHttpClient().GetAsync(path + requestUrl + $"/{vibesAcumulados}"))
             {
                 sorteios = response.IsSuccessStatusCode
                     ? JsonSerializer.Deserialize<List<Sorteios>>(await response.Content.ReadAsAsync<string>()) ?? new List<Sorteios>()
@@ -73,8 +76,9 @@ namespace SorteioWebApplication.Tools
         }
         static async Task<Sorteios> UpdateSorteiosAsync(Sorteios sorteios)
         {
+            string requestUrl = Tools.GetRequestUrl();
             HttpResponseMessage response = await Tools.getInstanceHttpClient().PutAsJsonAsync(
-                $"api/Sorteio/Put{sorteios.NumeroDoSorteio},{sorteios}", sorteios);
+                requestUrl + $"/Put{sorteios.NumeroDoSorteio},{sorteios}", sorteios);
             response.EnsureSuccessStatusCode();
 
             // Deserialize the updated product from the response body.
@@ -83,8 +87,9 @@ namespace SorteioWebApplication.Tools
         }
         static async Task<HttpStatusCode> DeleteSorteiosAsync(string id)
         {
+            string requestUrl = Tools.GetRequestUrl();
             HttpResponseMessage response = await Tools.getInstanceHttpClient().DeleteAsync(
-                $"api/Sorteio/{id}");
+                requestUrl + $"/{id}");
             return response.StatusCode;
         }
 
@@ -106,7 +111,7 @@ namespace SorteioWebApplication.Tools
                         Uri? baseAddress = Tools.getInstanceHttpClient().BaseAddress;
                         if (baseAddress != null)
                         {
-                            ListaSorteiosItens = await GetClienteAsync(baseAddress.ToString());
+                            ListaSorteiosItens = await GetSorteiosAsync(baseAddress.ToString());
                         }
                         break;
 
