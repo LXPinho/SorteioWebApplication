@@ -68,17 +68,6 @@ namespace SorteioWebApplication.Tools
                 sorteios = response.IsSuccessStatusCode
                     ? JsonSerializer.Deserialize<List<Sorteios>>(await response.Content.ReadAsAsync<string>()) ?? new List<Sorteios>()
                     : new List<Sorteios>();
-
-                //if (response.IsSuccessStatusCode)
-                //{
-                //    string json = await response.Content.ReadAsAsync<string>();
-                //    sorteios = JsonSerializer.Deserialize<List<Sorteios>>(json);
-                //}
-                //else
-                //{
-                //    sorteios = new List<Sorteios>();
-                //}
-
             }
             return sorteios;
         }
