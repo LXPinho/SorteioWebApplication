@@ -1,0 +1,54 @@
+﻿@model IEnumerable<SorteioWebApplication.Models.Sorteios>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NumeroDoSorteio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.QtdeNumerosSorteados)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VibesAculumadas)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Texto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ListaSorteios)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumeroDoSorteio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QtdeNumerosSorteados)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VibesAculumadas)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Texto)
+            </td>
+             <td>
+                @Html.DisplayFor(modelItem => item.ListaSorteios)
+             </td>
+              <td>
+                @Html.ActionLink("Detalhes", "Details", new { id = item.NumeroDoSorteio }) |
+            </td> 
+        </tr>
+}
+    </tbody>
+</table>
