@@ -31,12 +31,12 @@ namespace SorteioWebApplication.Controllers
         public ActionResult Details(int id)
         {
             ExecSorteios.RunAsync(ExecSorteios.enum_opcao.enumGet).GetAwaiter().GetResult();
-            Sorteios? Sorteios = ExecSorteios.ListaSorteiosItens
+            Sorteios? sorteios = ExecSorteios.ListaSorteiosItens
                                 .Select(i => i)
                                 .ToList<Sorteios>()
                                 .Where(i => i.NumeroDoSorteio == id)
                                 .FirstOrDefault<Sorteios>();
-            return View(Sorteios);
+            return View(sorteios);
         }
 
         // GET: SorteiosController

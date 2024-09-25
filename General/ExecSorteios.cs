@@ -79,7 +79,7 @@ namespace SorteioWebApplication.Tools
         {
             string requestUrl = Tools.GetRequestUrl();
             HttpResponseMessage response = await Tools.getInstanceHttpClient().PutAsJsonAsync(
-                requestUrl + $"/Put{sorteios.NumeroDoSorteio},{sorteios}", sorteios);
+                requestUrl + $"/{sorteios.NumeroDoSorteio},{sorteios}", sorteios);
             response.EnsureSuccessStatusCode();
 
             // Deserialize the updated product from the response body.

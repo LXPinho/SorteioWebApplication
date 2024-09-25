@@ -1,0 +1,49 @@
+﻿@model SorteioWebApplication.Models.Sorteios
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Detalhes</h1>
+
+<div>
+    <h4>Sorteios</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NumeroDoSorteio)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NumeroDoSorteio)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.QtdeNumerosSorteados)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.QtdeNumerosSorteados)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.VibesAculumadas)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.VibesAculumadas)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Texto)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Texto)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NumerosSorteados)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NumerosSorteados)
+        </dd>
+    </dl>
+</div>
+<div>
+@*     @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+ *@    <a asp-action="Index">Back to List</a>
+</div>

@@ -49,7 +49,7 @@
                 @Html.DisplayFor(modelItem => item.Texto)
             </td> *@
             <td>
-                @Html.ActionLink("Detalhes", "Details", new { id = item.VibesAculumadas }) |
+                    @Html.ActionLink("Detalhes", "Details", new { id = item.NumeroDoSorteio }) |
                 @Html.ActionLink("Deletar", "Delete", new { id = item.NumeroDoSorteio })
             </td>
          </tr>
