@@ -21,10 +21,9 @@ namespace SorteioWebApplication.Models
             get
             {
                 string result = string.Empty;
-                foreach (var item2 in from item1 in ListaSorteios
-                                      from item2 in item1.listaNumerosSorteados
-                                      select item2)
-                    result += ( string.IsNullOrEmpty(result) ? "" : ", " ) + item2.Numero.ToString();
+                foreach (var item1 in ListaSorteios)
+                    foreach (var item2 in item1.ListaNumeros)
+                        result += (string.IsNullOrEmpty(result) ? "" : ", ") + item2.Numero.ToString();
                 return result;
             }
         }

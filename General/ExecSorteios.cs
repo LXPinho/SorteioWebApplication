@@ -28,34 +28,35 @@ namespace SorteioWebApplication.Tools
             }
         }
         static public Sorteios SorteiosItem { get; set; } = new Sorteios();
-        static public void LimpaClienteItem()
+        static public void LimpaSorteosItem()
         {
             SorteiosItem.NumeroDoSorteio = 0;
             SorteiosItem.QtdeNumerosSorteados = 0;
             SorteiosItem.VibesAculumadas = 0;
-            foreach(ListaNumerosSorteados item in SorteiosItem.ListaSorteios) item.listaNumerosSorteados.Clear();
+            foreach(ListaNumerosSorteados item in SorteiosItem.ListaSorteios) item.ListaNumeros.Clear();
             SorteiosItem.ListaSorteios.Clear();
             SorteiosItem.Texto = string.Empty;
         }
 
-        static void ShowSorteios(List<Sorteios>? clientes)
+        static void ShowSorteios(List<Sorteios>? sorteios)
         {
             int count = 0;
-            foreach (Sorteios sorteios in clientes)
+            foreach (Sorteios _sorteios in sorteios)
             {
                 Console.Write($"[{++count}]\t");
-                ShowSorteios(sorteios);
+                ShowSorteios(_sorteios);
             }
         }
         static void ShowSorteios(Sorteios sorteios)
         {
             Console.WriteLine($"Sorteios: {sorteios.ToString()}");
         }
-        static async Task<Uri> CreateSorteiosAsync(Sorteios sorteios)
+        static async Task<Uri> CreateSorteiosAsync()
         {
             string requestUrl = Tools.GetRequestUrl();
+            int vibesAcumulados = Tools.GetVibesAcumulados();
             HttpResponseMessage response = await Tools.getInstanceHttpClient().PostAsJsonAsync(
-                requestUrl + $"{sorteios}", sorteios);
+                requestUrl + $"/{vibesAcumulados}", vibesAcumulados);
             response.EnsureSuccessStatusCode();
 
             // return URI of the created resource.
@@ -65,7 +66,7 @@ namespace SorteioWebApplication.Tools
         {
             List<Sorteios> sorteios;
             string requestUrl = Tools.GetRequestUrl();
-            int vibesAcumulados = Tools.GetVibesAcumulados();
+            int vibesAcumulados = 0 /*Tools.GetVibesAcumulados()*/;
             using (HttpResponseMessage response = await Tools.getInstanceHttpClient().GetAsync(path + requestUrl + $"/{vibesAcumulados}"))
             {
                 sorteios = response.IsSuccessStatusCode
@@ -85,24 +86,23 @@ namespace SorteioWebApplication.Tools
             sorteios = await response.Content.ReadAsAsync<Sorteios>();
             return sorteios;
         }
-        static async Task<HttpStatusCode> DeleteSorteiosAsync(string id)
+        static async Task<HttpStatusCode> DeleteSorteiosAsync(string numeroSorteio)
         {
             string requestUrl = Tools.GetRequestUrl();
             HttpResponseMessage response = await Tools.getInstanceHttpClient().DeleteAsync(
-                requestUrl + $"/{id}");
+                requestUrl + $"/{numeroSorteio}");
             return response.StatusCode;
         }
 
         public static async Task RunAsync(enum_opcao opcao = enum_opcao.enumGet)
         {
-            ListaSorteiosItens = new List<Sorteios>();
             try
             {
                 switch (opcao)
                 {
                     case enum_opcao.enumCreate:
                         // Create
-                        Uri url = await CreateSorteiosAsync(SorteiosItem);
+                        Uri url = await CreateSorteiosAsync();
                         break;
 
                     case enum_opcao.enumGet:

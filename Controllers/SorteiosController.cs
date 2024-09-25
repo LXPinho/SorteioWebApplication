@@ -20,7 +20,14 @@ namespace SorteioWebApplication.Controllers
             return View(listaSorteios);
         }
 
-        // GET: SorteiosController/Details/5
+        // GET: SorteiosController
+        public ActionResult Create()
+        {
+            ExecSorteios.RunAsync(ExecSorteios.enum_opcao.enumCreate).GetAwaiter().GetResult();
+            return RedirectToAction("Index");
+        }
+
+        // GET: SorteiosController
         public ActionResult Details(int id)
         {
             ExecSorteios.RunAsync(ExecSorteios.enum_opcao.enumGet).GetAwaiter().GetResult();
@@ -32,5 +39,13 @@ namespace SorteioWebApplication.Controllers
             return View(Sorteios);
         }
 
+        // GET: SorteiosController
+        public ActionResult Delete(int id)
+        {
+            ExecSorteios.LimpaSorteosItem();
+            ExecSorteios.SorteiosItem.NumeroDoSorteio = id;
+            ExecSorteios.RunAsync(ExecSorteios.enum_opcao.enumDelete).GetAwaiter().GetResult();
+            return RedirectToAction("Index");
+        }
     }
 }

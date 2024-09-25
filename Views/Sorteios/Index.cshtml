@@ -7,6 +7,9 @@
 
 
 <h1>Sorteios</h1>
+<p>
+    <a asp-action="Create">Novo</a>
+</p>
 <table class="table">
     <thead>
         <tr>
@@ -40,11 +43,15 @@
                 @Html.DisplayFor(modelItem => item.VibesAculumadas)
             </td>
              <td>
-                 @Html.DisplayFor(modelItem => item.NumerosSorteados)
+                @Html.DisplayFor(modelItem => item.NumerosSorteados)
              </td>
 @*             <td>
                 @Html.DisplayFor(modelItem => item.Texto)
             </td> *@
+            <td>
+                @Html.ActionLink("Detalhes", "Details", new { id = item.VibesAculumadas }) |
+                @Html.ActionLink("Deletar", "Delete", new { id = item.NumeroDoSorteio })
+            </td>
          </tr>
 }
     </tbody>
